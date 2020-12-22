@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "778922249411",
+    "project_id": "ccedoku",
+    "storage_bucket": "ccedoku.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:778922249411:android:7439e9141effe07428a676",
+        "android_client_info": {
+          "package_name": "com.example.ccedoku"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "778922249411-si88gfoqt80upsfsniks3do3c2ek3oc7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmq5ZTJz_dHVtx5fZsodzTPxpzye6UBkw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "778922249411-si88gfoqt80upsfsniks3do3c2ek3oc7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
