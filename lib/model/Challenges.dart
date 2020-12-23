@@ -7,13 +7,22 @@ class Challenges with ChangeNotifier {
   // String data;
   FirebaseService a = new FirebaseService();
   bool received = false;
+  int selected;
 
   getChallenges() async {
     challenges = await a.getEntriesAll();
     print(
         "\n\n\n\n\n\nreceived challenges and their len is ${challenges.length}\n\n ");
     received = true;
+    selected = 0;
     // print("data is $data");
+    notifyListeners();
+  }
+
+  changeSelected(int sel) {
+    selected = sel;
+
+    print("\n\n\n\n selected $selected \n\n\n\n\n");
     notifyListeners();
   }
 }

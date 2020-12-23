@@ -1,3 +1,4 @@
+import 'package:ccedoku/model/Challenge.dart';
 import 'package:ccedoku/model/Challenges.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -55,8 +56,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<Challenges>(builder: (context, chall, child) {
-      return Scaffold(
+    Challenges chall = Provider.of<Challenges>(context);
+    // String asd = a.challenges[a.challenges[a.selected]].sudk;
+    // String asd = a.challenges[a.selected].sudk;
+
+    return Scaffold(
         drawer: Drawer(
             // Add a ListView to the drawer. This ensures the user can scroll
             // through the options in the drawer if there isn't enough vertical
@@ -69,15 +73,27 @@ class _MyHomePageState extends State<MyHomePage> {
                       print("\n\n\n\n\n item with $index");
                       return index == 0
                           ? DrawerHeader(
-                              child: Text('Drawer Header'),
+                              child: CircleAvatar(),
+                              // child: Text('Drawer Header'),
                               decoration: BoxDecoration(
                                 color: Colors.blue,
                               ),
                             )
                           : Container(
+                              padding: EdgeInsets.all(1),
                               // height: 20.0,
                               child: ListTile(
+                                tileColor: Colors.grey,
+                                onTap: () {
+                                  chall.changeSelected(index - 1);
+                                  Navigator.pop(context);
+                                },
+                                leading: Text((index.toString())),
                                 title: Text(chall.challenges[index - 1].answ),
+                                trailing: Icon(
+                                  Icons.not_started_sharp,
+                                  color: Colors.red,
+                                ),
                               ),
                             );
                     })
@@ -106,42 +122,30 @@ class _MyHomePageState extends State<MyHomePage> {
                   )
                 ],
               )
-            : ListView.builder(
-                scrollDirection: Axis.vertical,
-                itemCount: chall.challenges.length,
-                itemBuilder: (BuildContext ctxt, int index) {
-                  print("\n\n\n\n\n item with $index");
-                  return Container(
-                    // height: 20.0,
-                    child: ListTile(
-                      title: Text(chall.challenges[index].answ),
-                    ),
-                  );
-                }),
-      );
-    });
+            : Sudoku());
   }
 }
 
-class SudTest extends StatefulWidget {
-  String asd;
-  SudTest({this.asd});
-  @override
-  _SudTestState createState() => _SudTestState();
-}
+// class SudTest extends StatefulWidget {
+//   // String asd;
+//   // SudTest({this.asd});
+//   @override
+//   _SudTestState createState() => _SudTestState();
+// }
 
-class _SudTestState extends State<SudTest> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Text(widget.asd),
-    );
-  }
-}
+// class _SudTestState extends State<SudTest> {
+//   @override
+//   Widget build(BuildContext context) {
+//     Challenges chall = Provider.of<Challenges>(context);
+//     return Container(
+//       child: Text(chall.challenges[1].sudk),
+//     );
+//   }
+// }
 
 class Sudoku extends StatefulWidget {
-  String asd;
-  Sudoku({this.asd});
+  // String asd;
+  // Sudoku({this.asd});
   @override
   _SudokuState createState() => _SudokuState();
 }
@@ -154,20 +158,28 @@ class _SudokuState extends State<Sudoku> {
   ];
   @override
   Widget build(BuildContext context) {
+    Challenges chall = Provider.of<Challenges>(context);
+    String asd = chall.challenges[chall.selected].sudk;
+    print("\n\n\n\n\n\n\n\nbaaammmmmmm Here\n\n\n\n\n\n\n\n");
     return Padding(
       padding: const EdgeInsets.all(28.0),
       child: Column(
         children: [
+          Card(
+            child: Text(chall.challenges[chall.selected].answ),
+          ),
           Container(
+            padding: EdgeInsets.all(2),
+            color: Colors.black,
             child: GridView.count(
               shrinkWrap: true,
               crossAxisCount: 9,
               children: List.generate(81, (index) {
                 // int index = ind + 1;
-                return widget.asd[index + 1] == "a"
+                return asd[index] == "a"
                     ? Container(
                         child: TextField(
-                          controller: mycon[index - 1],
+                          controller: mycon[index],
                           // errorText: mycon[index-1] ? ' ' : null,
                           textAlign: TextAlign.center,
                           keyboardType: TextInputType.number,
@@ -176,34 +188,41 @@ class _SudokuState extends State<Sudoku> {
                             // hintText: 'Enter a search term'
                           ),
                         ),
-                        color: Colors.red,
+                        color: Colors.grey[300],
                       )
                     : Container(
-                        child: Text(widget.asd[index + 1]),
-                        color: Colors.green,
+                        child: Text(asd[index]),
+                        color: Colors.grey,
                       );
               }),
             ),
           ),
-          RaisedButton(onPressed: () {
-            String anss = "";
-            // mycon[1]
-            for (int i = 0; i < 30; i++) {
-              print("bam\n\n\n");
-              print(mycon[i].text.isEmpty);
-              if (mycon[i].text.isNotEmpty) {
-                anss = anss + mycon[i].text;
-              }
-            }
+          SizedBox(
+            height: 40,
+          ),
+          RaisedButton(
+              color: Colors.green,
+              child: Text("Submit"),
+              onPressed: () {
+                String anss = "";
+                // mycon[1]
+                for (int i = 0; i < 30; i++) {
+                  print("bam\n\n\n");
+                  print(mycon[i].text.isEmpty);
+                  if (mycon[i].text.isNotEmpty) {
+                    anss = anss + mycon[i].text;
+                  }
+                }
 
-            return showDialog(
-                context: context,
-                builder: (context) {
-                  return AlertDialog(content: Text(anss));
-                });
-          })
+                return showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(content: Text(anss));
+                    });
+              })
         ],
       ),
     );
+    // });
   }
 }
