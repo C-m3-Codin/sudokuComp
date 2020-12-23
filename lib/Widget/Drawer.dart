@@ -43,7 +43,7 @@ class SudDrawer extends StatelessWidget {
                               Navigator.pop(context);
                             },
                             leading: Text((index.toString())),
-                            title: Text(chall.challenges[index - 1].answ),
+                            title: Text(chall.challenges[index - 1].name),
                             trailing: Icon(
                               Icons.not_started_sharp,
                               color: Colors.red,

@@ -60,7 +60,28 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(
           title: Text(widget.title),
         ),
-        body: chall.received == false ? StartGame(chall: chall) : Sudoku());
+        body: chall.received == "NotDone"
+            ? StartGame(chall: chall)
+            : chall.received == "Done"
+                ? Sudoku()
+                : Completed());
+  }
+}
+
+class Completed extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          children: [
+            Container(
+              child: Text("Done"),
+            ),
+          ],
+        ),
+      ],
+    );
   }
 }
 
