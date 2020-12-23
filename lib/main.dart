@@ -170,30 +170,27 @@ class _SudokuState extends State<Sudoku> {
           ),
           Container(
             padding: EdgeInsets.all(2),
-            color: Colors.black,
+            color: Colors.red,
             child: GridView.count(
               shrinkWrap: true,
-              crossAxisCount: 9,
-              children: List.generate(81, (index) {
+              crossAxisCount: 3,
+              children: List.generate(9, (index) {
                 // int index = ind + 1;
-                return asd[index] == "a"
-                    ? Container(
-                        child: TextField(
-                          controller: mycon[index],
-                          // errorText: mycon[index-1] ? ' ' : null,
-                          textAlign: TextAlign.center,
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            // hintText: 'Enter a search term'
-                          ),
-                        ),
-                        color: Colors.grey[300],
-                      )
-                    : Container(
-                        child: Text(asd[index]),
-                        color: Colors.grey,
+                return Container(
+                  padding: EdgeInsets.all(1),
+                  color: Colors.black,
+                  child: GridView.count(
+                    shrinkWrap: true,
+                    crossAxisCount: 3,
+                    children: List.generate(9, (inde) {
+                      // int index = ind + 1;
+                      return Container(
+                        child: Text(asd[inde + index * 9]),
+                        color: Colors.blue,
                       );
+                    }),
+                  ),
+                );
               }),
             ),
           ),
